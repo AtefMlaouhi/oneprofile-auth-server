@@ -1,0 +1,28 @@
+server:
+  address: 0.0.0.0
+  port: 8888
+  servlet:
+    contextPath: /uaa
+
+security:
+# deprecated
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: password
+    roles: USER
+  ignored:
+  - "*.bundle.*"
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: read,write
+      auto-approve-scopes: '.*'
+
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.security: DEBUG
+

@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+    server:
+#      build:
+#        context: ./springboot2-oauth2-server-demo
+#        dockerfile: ../docker/Dockerfile
+      image: java:8-alpine
+      hostname: server
+      ports:
+        - "8888:8888"
+        - "5001:5001"
+      volumes:
+        - ./docker/run.sh:/demo/run.sh
+        - ./docker/config/server/application-override.yml:/demo/config/application-override.yml
+        - ./springboot2-oauth2-server-demo/target/springboot2-oauth2-server-demo-fat-exec.jar:/demo/jars/app-fat-exec.jar
+      working_dir: "/demo"
+#      command: "java -jar /demo/jars/app-fat-exec.jar"
+#      command: "java -jar /demo/jars/app-fat-exec.jar --jwt.keystore.path=/demo/config/keystore.jks"
+      command: "/demo/run.sh 5001"
+
+    client:
+#      build:
+#        context: ./springboot2-oauth2-resource-sso-demo
+#        dockerfile: ../docker/Dockerfile
+      image: java:8-alpine
+      hostname: client
+      ports:
+        - "8080:8080"
+        - "5002:5002"
+      volumes:
+        - ./docker/run.sh:/demo/run.sh
+        - ./docker/config/client/application-override.yml:/demo/config/application-override.yml
+        - ./springboot2-oauth2-resource-sso-demo/target/springboot2-oauth2-resource-sso-demo-fat-exec.jar:/demo/jars/app-fat-exec.jar
+      working_dir: "/demo"
+#      command: "java -jar /demo/jars/app-fat-exec.jar"
+#      command: "java -jar /demo/jars/app-fat-exec.jar --jwt.publickey.path=/demo/config/key.pub"
+      command: "/demo/run.sh 5002"
