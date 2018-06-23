@@ -1,8 +1,8 @@
 package com.newlight77.oauth2.server.exception;
 
-import com.newlight77.bhavio.exception.ExceptionDetail;
-import com.newlight77.bhavio.exception.ForbiddenException;
-import com.newlight77.bhavio.exception.UnauthorizedException;
+import com.newlight77.exception.ExceptionDetail;
+import com.newlight77.exception.ForbiddenException;
+import com.newlight77.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;

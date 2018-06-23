@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.newlight77</groupId>
-	<artifactId>bhavio-auth-demo</artifactId>
+	<artifactId>oneprofile-auth-demo</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>bhavio-auth-demo</name>
+	<name>oneprofile-auth-demo</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
