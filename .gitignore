@@ -3,6 +3,10 @@
 #
 .idea
 *.iml
+.project
+.settings
+.classpath
+.factorypath
 
 # Compiled class file
 *.class

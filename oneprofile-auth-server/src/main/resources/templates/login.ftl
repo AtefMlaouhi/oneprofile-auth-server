@@ -5,13 +5,13 @@
 <script type="text/javascript" src="webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<#if RequestParameters['error']??>
-	<div class="alert alert-danger">
-		There was a problem logging in. Please try again.
-	</div>
-</#if>
+    <#if RequestParameters['error']??>
+        <div class="alert alert-danger">
+            There was a problem logging in. Please try again.
+        </div>
+    </#if>
 	<div class="container">
-		<form role="form" action="login" method="post">
+		<form userAccount="form" action="login" method="post">
 		  <div class="form-group">
 		    <label for="username">Username:</label>
 		    <input type="text" class="form-control" id="username" name="username"/>
@@ -23,15 +23,17 @@
 		  <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
+
+        <h3>
+            Or
+        </h3>
+        <div>
+            With Facebook: <a href="/uaa/login/facebook">click here</a>
+        </div>
+        <div>
+            With Github: <a href="/uaa/login/github">click here</a>
+        </div>
 	</div>
-    <h3>
-        Or
-    </h3>
-    <div>
-        With Facebook: <a href="/uaa/login/facebook">click here</a>
-    </div>
-    <div>
-        With Github: <a href="/uaa/login/github">click here</a>
-    </div>
+
 </body>
 </html>

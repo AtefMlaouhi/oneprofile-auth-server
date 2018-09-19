@@ -70,7 +70,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     clients
       .inMemory()
-
+          // admin client
         .withClient("adminclient")
         .secret("{noop}adminclientsecret")
         .authorizedGrantTypes(
@@ -81,15 +81,16 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "refresh_token")
         .authorities("ROLE_USER", "ROLE_ADMIN")
         .scopes("read", "write", "admin")
-        .redirectUris("http://localhost:8080/sso/login")
+        .redirectUris("http://localhost:8080/admin/login")
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
         .autoApprove(true)
 
       .and()
-        .withClient("publicclient")
-        .secret("{noop}publicclientsecret")
+            // external/public client
+        .withClient("api")
+        .secret("{noop}apisecret")
         .authorizedGrantTypes(
             // implicit: almost the same as authorization_code,
             // but for public clients (web apps or installed/mobile applications)
@@ -98,15 +99,16 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "refresh_token")
         .authorities("ROLE_TRUSTED_CLIENT")
         .scopes("read", "write", "external_services")
-        .redirectUris("http://localhost:8080/sso/login")
+        .redirectUris("http://localhost:8080/public/login")
         //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
         .autoApprove(true)
 
       .and()
-        .withClient("internalresourceserver")
-        .secret("{noop}internalresourceserversecret")
+            // internal web sso client
+        .withClient("sso")
+        .secret("{noop}ssosecret")
         .authorizedGrantTypes(
             "authorization_code",
             "client_credentials",
@@ -123,6 +125,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
         .autoApprove(true)
 
       .and()
+            // privileged client - testing purpose
         .withClient("acme")
         .secret("{noop}acmesecret")
         .authorizedGrantTypes(
