@@ -27,16 +27,16 @@ public class AccessTokenRevokeTest {
   public void whenRevokeToken_thenTokenInvalidError() {
     final AccessToken
         accessToken1 =
-        AccessTokenUtil.requestAccessToken(serverPort, "internalresourceserver", "internalresourceserversecret", "benoit", "password");
+        AccessTokenUtil.requestAccessToken(serverPort, "sso", "ssosecret", "benoit", "password");
     final AccessToken
         accessToken2 =
-        AccessTokenUtil.requestAccessToken(serverPort, "internalresourceserver", "internalresourceserversecret", "fabien", "password");
+        AccessTokenUtil.requestAccessToken(serverPort, "sso", "ssosecret", "fabien", "password");
 
     final AccessToken
         accessToken3 =
-        AccessTokenUtil.refreshToken(serverPort, "internalresourceserver", "internalresourceserversecret", accessToken1.getRefreshToken());
+        AccessTokenUtil.refreshToken(serverPort, "sso", "ssosecret", accessToken1.getRefreshToken());
 
-    AccessTokenUtil.authorizeClient(serverPort, "internalresourceserver", "internalresourceserversecret");
+    AccessTokenUtil.authorizeClient(serverPort, "sso", "ssosecret");
 
     // accessToken1 has been refreshed : given accessToken3
     final Response

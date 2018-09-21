@@ -28,7 +28,7 @@ public class AccessTokenRequestTest {
   @Test
   public void whenRequestingAccessTokenUsingPasswordGrantType_thenSuccess() {
     final AccessToken accessToken =
-        AccessTokenUtil.requestAccessToken(serverPort, "internalresourceserver", "internalresourceserversecret", "benoit", "password");
+        AccessTokenUtil.requestAccessToken(serverPort, "sso", "ssosecret", "benoit", "password");
     assertNotNull(accessToken.getAccessToken());
     assertNotNull(accessToken.getRefreshToken());
 
