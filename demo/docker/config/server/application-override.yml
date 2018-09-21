@@ -4,6 +4,11 @@ server:
   servlet:
     contextPath: /uaa
 
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.security: DEBUG
+
 security:
 # deprecated
   basic:
@@ -14,11 +19,6 @@ security:
     roles: USER
   ignored:
   - "*.bundle.*"
-
-logging:
-  config: classpath:logback.xml
-  level:
-    org.springframework.security: DEBUG
 
 github:
   client:

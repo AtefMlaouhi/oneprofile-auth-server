@@ -1,8 +1,13 @@
 server:
   address: 0.0.0.0
-  port: 9999
+  port: 8888
   servlet:
     contextPath: /uaa
+
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.security: DEBUG
 
 security:
 # deprecated
@@ -14,12 +19,6 @@ security:
     roles: USER
   ignored:
   - "*.bundle.*"
-
-logging:
-  config: classpath:logback.xml
-  level:
-    org.springframework.security: DEBUG
-
 
 github:
   client:

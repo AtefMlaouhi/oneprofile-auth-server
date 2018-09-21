@@ -2,9 +2,9 @@ version: '3'
 
 services:
 
-    server:
+    auth-server:
       image: java:8-alpine
-      hostname: server
+      hostname: authserver
       ports:
         - "8888:8888"
         - "5001:5001"

@@ -27,6 +27,9 @@
         <h3>
             Or
         </h3>
+         <div>
+            try user:password
+        </div>
         <div>
             With Facebook: <a href="/uaa/login/facebook">click here</a>
         </div>
