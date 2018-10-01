@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -16,12 +17,15 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer
@@ -73,6 +77,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
           // admin client
         .withClient("adminclient")
         .secret("{noop}adminclientsecret")
+//        .secret(passwordEncoder().encode("adminclientsecret"))
         .authorizedGrantTypes(
             // authorization_code: The client application is strongly authenticated because it has to send all its
             // credentials (client_id+ client_secret + redirect_uri) before it can get a token
@@ -148,10 +153,13 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
   @Override public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
     // Here you will do non-security configs for end points associated with your Authorization Server
     // and can specify details about authentication manager, token generation etc. Sample code below
-    endpoints.authenticationManager(this.authenticationManager)
-//        .tokenServices(tokenServices())
+    final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+
+    endpoints
+        .authenticationManager(this.authenticationManager)
         .tokenStore(tokenStore())
-        .accessTokenConverter(accessTokenConverter())
+        .tokenEnhancer(tokenEnhancerChain)
     ;
   }
 
@@ -180,4 +188,13 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
     return converter;
   }
 
+  @Bean
+  public TokenEnhancer tokenEnhancer() {
+    return new CustomTokenEnhancer();
+  }
+
+//  @Bean
+//  public BCryptPasswordEncoder passwordEncoder() {
+//    return new BCryptPasswordEncoder();
+//  }
 }
