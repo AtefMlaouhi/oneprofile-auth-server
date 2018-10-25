@@ -1,5 +1,6 @@
 package com.newlight77.oauth2.server.config;
 
+import com.newlight77.oauth2.server.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +13,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import javax.servlet.Filter;
 
@@ -96,7 +98,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .antMatcher("/**")
           .requestMatchers()
           .antMatchers(
-              "/user",
+              "/me",
+              "/me/**",
               "/login/**",
               "/login",
               "/logout",
@@ -126,9 +129,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .and()
           .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class)
-        ;
+//          .addFilterBefore(jwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
+
+    ;
 
     // @formatter:on
   }
+
+    private CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName("X-XSRF-TOKEN");
+        return repository;
+    }
+
+    private Filter jwtAuthenticationTokenFilter() {
+      return new JwtAuthenticationTokenFilter();
+    }
 
 }
