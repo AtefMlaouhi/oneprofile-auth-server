@@ -14,17 +14,17 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserEndpointTest {
+public class IdentityEndpointTest {
 
   @LocalServerPort
   private int port;
 
   private TestRestTemplate template = new TestRestTemplate();
 
-  @Test public void userEndpointProtected() {
+  @Test public void identityEndpointProtected() {
     String url = String.format("http://localhost:%s/uaa", port);
     ResponseEntity<String> response = template
-        .getForEntity(url + "/user", String.class);
+        .getForEntity(url + "/me", String.class);
 //    assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 //    String auth = response.getHeaders().getFirst("WWW-Authenticate");
 //    assertTrue("Wrong header: " + auth, auth.startsWith("Bearer realm=\""));
@@ -33,7 +33,6 @@ public class UserEndpointTest {
     String location = response.getHeaders().getFirst("Location");
     assertTrue("Wrong header: " + location,
         location.startsWith(url + "/login"));
-
 
   }
 
