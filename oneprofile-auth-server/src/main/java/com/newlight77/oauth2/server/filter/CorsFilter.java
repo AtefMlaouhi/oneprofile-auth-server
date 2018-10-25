@@ -1,4 +1,4 @@
-package com.newlight77.oauth2.server.config;
+package com.newlight77.oauth2.server.filter;
 
 import java.io.IOException;
 
