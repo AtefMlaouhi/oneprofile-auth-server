@@ -104,7 +104,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "refresh_token")
         .authorities("ROLE_ADMIN")
         .scopes("read", "write", "delete")
-        .redirectUris("http://localhost:4200/admin", "http://localhost:8080/admin")
+        .redirectUris("http://oneprofile.io:4200", "http://oneprofile.io:8080")
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days

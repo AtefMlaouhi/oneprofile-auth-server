@@ -1,0 +1,31 @@
+server:
+  address: 0.0.0.0
+  port: 8888
+  servlet:
+    contextPath: /uaa
+
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.security: INFO
+
+security:
+# deprecated
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: password
+    roles: USER
+  ignored:
+  - "*.bundle.*"
+
+github:
+  client:
+    clientId: 8cef8b1e9bfa2145b5aa
+    clientSecret: 4e5c498777cb5aaaf5e9c0ac3aa0ccdaa9caca9f
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user

@@ -12,7 +12,7 @@ services:
         - ./docker/config/server/run.sh:/demo/run.sh
         - ./docker/config/server/keystore.jks:/demo/config/keystore.jks
         - ./docker/config/server/logback.xml:/demo/config/logback.xml
-        - ./docker/config/server/application-override.yml:/demo/config/application-override.yml
+        - ./docker/config/server/application.yml:/demo/config/application.yml
         - ../oneprofile-auth-server/target/oneprofile-auth-server-fat-exec.jar:/demo/jars/app-fat-exec.jar
       working_dir: "/demo"
 #      command: "java -jar /demo/jars/app-fat-exec.jar"
@@ -29,7 +29,7 @@ services:
         - ./docker/config/client/run.sh:/demo/run.sh
         - ./docker/config/client/key.pub:/demo/config/key.pub
         - ./docker/config/client/logback.xml:/demo/config/logback.xml
-        - ./docker/config/client/application-override.yml:/demo/config/application-override.yml
+        - ./docker/config/client/application.yml:/demo/config/application.yml
         - ./oneprofile-auth-demo/target/oneprofile-auth-demo-fat-exec.jar:/demo/jars/app-fat-exec.jar
       working_dir: "/demo"
 #      command: "java -jar /demo/jars/app-fat-exec.jar"
