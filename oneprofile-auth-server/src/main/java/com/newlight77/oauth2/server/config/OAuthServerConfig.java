@@ -75,8 +75,8 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
     clients
       .inMemory()
           // admin client
-        .withClient("admin.localhost")
-        .secret("{noop}admin.localhost.secret")
+        .withClient("adminlocalhost")
+        .secret("{noop}adminlocalhostsecret")
 //        .secret(passwordEncoder().encode("adminclientsecret"))
         .authorizedGrantTypes(
             // authorization_code: The client application is strongly authenticated because it has to send all its
@@ -94,8 +94,8 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
       .and()
           // admin client
-        .withClient("admin.oneprofile.io")
-        .secret("{noop}admin.oneprofile.io.secret")
+        .withClient("adminoneprofileio")
+        .secret("{noop}adminoneprofileiosecret")
         .authorizedGrantTypes(
             // authorization_code: The client application is strongly authenticated because it has to send all its
             // credentials (client_id+ client_secret + redirect_uri) before it can get a token
@@ -113,7 +113,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .and()
             // external/public client
         .withClient("api")
-        .secret("{noop}api.secret")
+        .secret("{noop}apisecret")
         .authorizedGrantTypes(
             // implicit: almost the same as authorization_code,
             // but for public clients (web apps or installed/mobile applications)
@@ -131,7 +131,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .and()
             // internal web sso client
         .withClient("sso")
-        .secret("{noop}sso.secret")
+        .secret("{noop}ssosecret")
         .authorizedGrantTypes(
             "authorization_code",
             "client_credentials",
@@ -150,7 +150,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .and()
             // privileged client - testing purpose
         .withClient("acme")
-        .secret("{noop}acme.secret")
+        .secret("{noop}acmesecret")
         .authorizedGrantTypes(
             "authorization_code",
             "client_credentials",
