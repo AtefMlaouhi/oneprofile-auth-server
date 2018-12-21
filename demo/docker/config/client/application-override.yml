@@ -16,7 +16,7 @@ security:
 #      userInfoUri: https://api.github.com/user
     client:
       client-id: acme
-      client-secret: acmesecret
+      client-secret: acme.secret
       access-token-uri: http://server:8888/oauth/token
       user-authorization-uri: http://localhost:8888/oauth/authorize
     resource:

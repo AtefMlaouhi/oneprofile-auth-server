@@ -75,8 +75,8 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
     clients
       .inMemory()
           // admin client
-        .withClient("adminclient")
-        .secret("{noop}adminclientsecret")
+        .withClient("admin.localhost")
+        .secret("{noop}admin.localhost.secret")
 //        .secret(passwordEncoder().encode("adminclientsecret"))
         .authorizedGrantTypes(
             // authorization_code: The client application is strongly authenticated because it has to send all its
@@ -86,7 +86,25 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "refresh_token")
         .authorities("ROLE_USER", "ROLE_ADMIN")
         .scopes("read", "write", "admin")
-        .redirectUris("http://localhost:8080/admin/login")
+        .redirectUris("http://localhost:8080/login")
+//        .resourceIds("oauth2_resource_id")
+        .accessTokenValiditySeconds(3600) // 1 hour
+        .refreshTokenValiditySeconds(2592000) // 30 days
+        .autoApprove(true)
+
+      .and()
+          // admin client
+        .withClient("admin.oneprofile.io")
+        .secret("{noop}admin.oneprofile.io.secret")
+        .authorizedGrantTypes(
+            // authorization_code: The client application is strongly authenticated because it has to send all its
+            // credentials (client_id+ client_secret + redirect_uri) before it can get a token
+            "authorization_code",
+            "client_credentials",
+            "refresh_token")
+        .authorities("ROLE_USER", "ROLE_ADMIN")
+        .scopes("read", "write", "admin")
+        .redirectUris("http://admin.oneprofile.io/login")
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
@@ -95,7 +113,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .and()
             // external/public client
         .withClient("api")
-        .secret("{noop}apisecret")
+        .secret("{noop}api.secret")
         .authorizedGrantTypes(
             // implicit: almost the same as authorization_code,
             // but for public clients (web apps or installed/mobile applications)
@@ -104,7 +122,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "refresh_token")
         .authorities("ROLE_TRUSTED_CLIENT")
         .scopes("read", "write", "external_services")
-        .redirectUris("http://localhost:8080/public/login")
+        .redirectUris("http://localhost:8080/login")
         //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
@@ -113,7 +131,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .and()
             // internal web sso client
         .withClient("sso")
-        .secret("{noop}ssosecret")
+        .secret("{noop}sso.secret")
         .authorizedGrantTypes(
             "authorization_code",
             "client_credentials",
@@ -123,7 +141,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "password")
         .authorities("ROLE_USER")
         .scopes("read", "write", "internal_services")
-        .redirectUris("http://localhost:8080/sso/login")
+        .redirectUris("http://localhost:8080/login")
         //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
@@ -132,7 +150,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .and()
             // privileged client - testing purpose
         .withClient("acme")
-        .secret("{noop}acmesecret")
+        .secret("{noop}acme.secret")
         .authorizedGrantTypes(
             "authorization_code",
             "client_credentials",
@@ -140,7 +158,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "password")
         .authorities("ROLE_USER", "ROLE_ADMIN", "ROLE_TRUSTED_CLIENT")
         .scopes("read", "write", "internal_services", "external_services", "admin")
-        .redirectUris("http://localhost:8080/sso/login")
+        .redirectUris("http://localhost:8080/login")
         //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
