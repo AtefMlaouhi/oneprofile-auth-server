@@ -84,8 +84,8 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "authorization_code",
             "client_credentials",
             "refresh_token")
-        .authorities("ROLE_USER", "ROLE_ADMIN")
-        .scopes("read", "write", "admin")
+        .authorities("ROLE_ADMIN")
+        .scopes("read", "write", "delete")
         .redirectUris("http://localhost:8080/login")
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
@@ -102,9 +102,9 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "authorization_code",
             "client_credentials",
             "refresh_token")
-        .authorities("ROLE_USER", "ROLE_ADMIN")
-        .scopes("read", "write", "admin")
-        .redirectUris("http://admin.oneprofile.io/login")
+        .authorities("ROLE_ADMIN")
+        .scopes("read", "write", "delete")
+        .redirectUris("http://localhost:4200/admin", "http://localhost:8080/admin")
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
@@ -121,7 +121,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "client_credentials",
             "refresh_token")
         .authorities("ROLE_TRUSTED_CLIENT")
-        .scopes("read", "write", "external_services")
+        .scopes("read", "write", "delete")
         .redirectUris("http://localhost:8080/login")
         //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
@@ -140,7 +140,7 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             // (username+password) and its own credentials (client_id+client_secret) in exchange for a token
             "password")
         .authorities("ROLE_USER")
-        .scopes("read", "write", "internal_services")
+        .scopes("read", "write", "delete")
         .redirectUris("http://localhost:8080/login")
         //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
