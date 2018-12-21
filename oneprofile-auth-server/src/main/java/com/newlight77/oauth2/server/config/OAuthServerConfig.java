@@ -86,7 +86,9 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
             "refresh_token")
         .authorities("ROLE_ADMIN")
         .scopes("read", "write", "delete")
-        .redirectUris("http://localhost:8080/login")
+        .redirectUris("http://localhost:8080/login", // running in docker env
+                "http://localhost:8080/admin/login" // running in ide
+        )
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
         .refreshTokenValiditySeconds(2592000) // 30 days
