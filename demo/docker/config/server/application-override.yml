@@ -2,12 +2,12 @@ server:
   address: 0.0.0.0
   port: 8888
   servlet:
-    contextPath: /uaa
+    contextPath: /
 
 logging:
   config: classpath:logback.xml
   level:
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
 
 security:
 # deprecated

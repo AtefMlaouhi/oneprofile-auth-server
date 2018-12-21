@@ -17,10 +17,10 @@ security:
     client:
       client-id: acme
       client-secret: acmesecret
-      access-token-uri: http://server:8888/uaa/oauth/token
-      user-authorization-uri: http://localhost:8888/uaa/oauth/authorize
+      access-token-uri: http://server:8888/oauth/token
+      user-authorization-uri: http://localhost:8888/oauth/authorize
     resource:
-      user-info-uri: http://server:8888/uaa/user
+      user-info-uri: http://server:8888/user
 
 
 logging:
