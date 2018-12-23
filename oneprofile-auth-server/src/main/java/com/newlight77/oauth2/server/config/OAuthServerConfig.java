@@ -109,7 +109,8 @@ public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
         .scopes("read", "write", "delete")
         .redirectUris(
           "http://oneprofile.io:4200/login", 
-          "http://oneprofile.io:8080/login"
+          "http://oneprofile.io:8080/login",
+          "http://admin.oneprofile.io/login"
         )
 //        .resourceIds("oauth2_resource_id")
         .accessTokenValiditySeconds(3600) // 1 hour
